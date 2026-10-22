@@ -1,0 +1,12 @@
+teleop_env/
+episodes/
+aligned/
+checkpoints/
+*.h5
+*.mp4
+*.pt
+oakd_rgb.png
+oakd_depth.png
+__pycache__/
+*.py[cod]
+.vscode/

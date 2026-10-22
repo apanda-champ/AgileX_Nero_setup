@@ -1,0 +1,35 @@
+# Nero teleop + behaviour cloning pipeline
+# Ubuntu 22.04 / Python 3.10
+#
+#   python3 -m venv teleop_env
+#   source teleop_env/bin/activate
+#   pip install -r requirements.txt
+#
+# ---------------------------------------------------------------------------
+# NOT on PyPI — installed separately by setup_ubuntu2204.sh:
+#
+#   pyAgxArm    pip install "git+https://github.com/agilexrobotics/pyAgxArm.git"
+#               Needs a revision from 2026-09 or later for NeroFW.V121
+#               (firmware >= 1.21). Verify after installing:
+#                   python -c "from pyAgxArm import NeroFW; print(NeroFW.V121)"
+#
+# APT packages — see setup_ubuntu2204.sh:
+#   can-utils iproute2              candump/cansend, gripper ID change
+#   libusb-1.0-0-dev udev           OAK-D over USB
+#   libgl1 libglib2.0-0 libsm6      OpenCV windows
+#   libxext6 libxrender1
+#   libxcb-xinerama0                Qt backend for cv2.imshow
+#   libxkbcommon-x11-0
+#
+# Kernel modules: can, can_raw, gs_usb
+# ---------------------------------------------------------------------------
+
+python-can>3.3.4     # required by pyAgxArm for SocketCAN
+numpy>=1.24
+h5py>=3.8            # episode files
+depthai>=3.0         # OAK-D. v3 API — v2 tutorials will not run
+opencv-python>=4.8   # JPEG encode/decode, depth resize, playback windows
+torch>=2.0           # BC policy. The default wheel bundles CUDA; for a
+                     # CPU-only box use the cpu index instead:
+                     #   pip install torch --index-url \
+                     #       https://download.pytorch.org/whl/cpu
